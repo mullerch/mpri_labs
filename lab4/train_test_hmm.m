@@ -1,7 +1,8 @@
 % HMM exercise  
 % -------------
 
-
+tested_person = 'christian';
+%tested_person = 'romain';
 
 disp ('-------- reading signal and computing cepstra ----------');
 
@@ -22,11 +23,11 @@ disp ('-------- reading signal and computing cepstra ----------');
 [training_data5_2, Fs5_2, bits5] = wavread('audio-samples/christian/5_2.wav');
 [training_data5_3, Fs5_3, bits5] = wavread('audio-samples/christian/5_3.wav');
 
-[testing_data1, Fs1t, bits1t] = wavread('audio-samples/christian/1t.wav');
-[testing_data2, Fs2t, bits2t] = wavread('audio-samples/christian/2t.wav');
-[testing_data3, Fs3t, bits3t] = wavread('audio-samples/christian/3t.wav');
-[testing_data4, Fs4t, bits4t] = wavread('audio-samples/christian/4t.wav');
-[testing_data5, Fs5t, bits5t] = wavread('audio-samples/christian/5t.wav');
+[testing_data1, Fs1t, bits1t] = wavread(['audio-samples/' tested_person '/1t.wav']);
+[testing_data2, Fs2t, bits2t] = wavread(['audio-samples/' tested_person '/2t.wav']);
+[testing_data3, Fs3t, bits3t] = wavread(['audio-samples/' tested_person '/3t.wav']);
+[testing_data4, Fs4t, bits4t] = wavread(['audio-samples/' tested_person '/4t.wav']);
+[testing_data5, Fs5t, bits5t] = wavread(['audio-samples/' tested_person '/5t.wav']);
   
 [testing_datap, Fspt, bitspt] = wavread('audio-samples/christian/peut.wav');
 
@@ -60,7 +61,7 @@ c5t = melcepst(testing_data5,Fs5t)';
 cp = melcepst(testing_datap,Fspt)';
 
 %-------------------------------------------------------------------------
-%TODO: afficher la durée des fichiers d'entraînement (en millisecondes) ainsi 
+%DONE: afficher la durée des fichiers d'entraînement (en millisecondes) ainsi 
 %que le nombre de vecteurs acoustiques qui en sont extraits (nombre de colonnes de la matrice ci_i)
 [tmp, nb_vectors_c1_1] = size(c1_1);
 [tmp, nb_vectors_c1_2] = size(c1_2);
@@ -116,7 +117,7 @@ disp ('-------- training data overview ----------');
 disp(['Sample 1_1 - ' num2str(duration_c1_1) ' msec - ' num2str(nb_vectors_c1_1) ' vectors']);
 disp(['Sample 1_2 - ' num2str(duration_c1_2) ' msec - ' num2str(nb_vectors_c1_2) ' vectors']);
 disp(['Sample 1_3 - ' num2str(duration_c1_3) ' msec - ' num2str(nb_vectors_c1_3) ' vectors']);
-disp(['Sample 2_1 - ' num2str(duration_c2_1) ' msec - ' num2str(nb_vectors_c2_1) ' vectors']);
+disp(['Sample 2_1 -  ' num2str(duration_c2_1) ' msec - ' num2str(nb_vectors_c2_1) ' vectors']);
 disp(['Sample 2_2 - ' num2str(duration_c2_2) ' msec - ' num2str(nb_vectors_c2_2) ' vectors']);
 disp(['Sample 2_3 - ' num2str(duration_c2_3) ' msec - ' num2str(nb_vectors_c2_3) ' vectors']);
 disp(['Sample 3_1 - ' num2str(duration_c3_1) ' msec - ' num2str(nb_vectors_c3_1) ' vectors']);
@@ -129,28 +130,34 @@ disp(['Sample 5_1 - ' num2str(duration_c5_1) ' msec - ' num2str(nb_vectors_c5_1)
 disp(['Sample 5_2 - ' num2str(duration_c5_2) ' msec - ' num2str(nb_vectors_c5_2) ' vectors']);
 disp(['Sample 5_3 - ' num2str(duration_c5_3) ' msec - ' num2str(nb_vectors_c5_3) ' vectors']);
 
-mean([duration_c1_1 duration_c1_2 duration_c1_3])
-mean([nb_vectors_c1_1 nb_vectors_c1_2 nb_vectors_c1_3])
+disp('-------- mean computation ----------');
+disp('1 samples')
+disp(['|  Duration : ' num2str(mean([duration_c1_1 duration_c1_2 duration_c1_3])) ]);
+disp(['|  Vectors : ' num2str(mean([nb_vectors_c1_1 nb_vectors_c1_2 nb_vectors_c1_3])) ]);
 
-mean([duration_c2_1 duration_c2_2 duration_c2_3])
-mean([nb_vectors_c2_1 nb_vectors_c2_2 nb_vectors_c2_3])
+disp('2 samples')
+disp(['|  Duration : ' num2str(mean([duration_c2_1 duration_c2_2 duration_c2_3])) ]);
+disp(['|  Vectors : ' num2str(mean([nb_vectors_c2_1 nb_vectors_c2_2 nb_vectors_c2_3])) ]);
 
-mean([duration_c3_1 duration_c3_2 duration_c3_3])
-mean([nb_vectors_c3_1 nb_vectors_c3_2 nb_vectors_c3_3])
+disp('3 samples')
+disp(['|  Duration : ' num2str(mean([duration_c3_1 duration_c3_2 duration_c3_3])) ]);
+disp(['|  Vectors : ' num2str(mean([nb_vectors_c3_1 nb_vectors_c3_2 nb_vectors_c3_3])) ]);
 
-mean([duration_c4_1 duration_c4_2 duration_c4_3])
-mean([nb_vectors_c4_1 nb_vectors_c4_2 nb_vectors_c4_3])
+disp('4 samples')
+disp(['|  Duration : ' num2str(mean([duration_c4_1 duration_c4_2 duration_c4_3])) ]);
+disp(['|  Vectors : ' num2str(mean([nb_vectors_c4_1 nb_vectors_c4_2 nb_vectors_c4_3])) ]);
 
-mean([duration_c5_1 duration_c5_2 duration_c5_3])
-mean([nb_vectors_c5_1 nb_vectors_c5_2 nb_vectors_c5_3])
+disp('5 samples')
+disp(['|  Duration : ' num2str(mean([duration_c5_1 duration_c5_2 duration_c5_3])) ]);
+disp(['|  Vectors : ' num2str(mean([nb_vectors_c5_1 nb_vectors_c5_2 nb_vectors_c5_3])) ]);
 
 
 %-------------------------------------------------------------------------
 
-
-disp ('-------- training model for 1 ----------');
+disp('')
+disp('-------- training model for 1 ----------');
 %-------------------------------------------------------------------------
-%TODO : utiser la bonne valeur de N pour le training de vos modèles!!
+%DONE : utiser la bonne valeur de N pour le training de vos modèles!!
 
 N=5; A=inittran(N); [MI,SIGMA]=initemis(c1_1,N); 
 [NEWA, NEWMI, NEWSIGMA, Ptot] = vit_reestim (c1_1,c1_2,c1_3, A, MI, SIGMA);
@@ -162,7 +169,7 @@ end
 A1=NEWA; MI1=NEWMI; SIGMA1=SIGMA;
 
 disp ('-------- training model for 2 ----------');
-N=5; A=inittran(N); [MI,SIGMA]=initemis(c2_1,N); 
+N=6; A=inittran(N); [MI,SIGMA]=initemis(c2_1,N); 
 [NEWA, NEWMI, NEWSIGMA, Ptot] = vit_reestim (c2_1,c2_2,c2_3, A, MI, SIGMA);
 Ptot
 for iter=1:5  
@@ -172,7 +179,7 @@ end
 A2=NEWA; MI2=NEWMI; SIGMA2=SIGMA;
 
 disp ('-------- training model for 3 ----------');
-N=5; A=inittran(N); [MI,SIGMA]=initemis(c3_1,N); 
+N=8; A=inittran(N); [MI,SIGMA]=initemis(c3_1,N); 
 [NEWA, NEWMI, NEWSIGMA, Ptot] = vit_reestim (c3_1,c3_2,c3_3, A, MI, SIGMA);
 Ptot
 for iter=1:5  
@@ -182,7 +189,7 @@ end
 A3=NEWA; MI3=NEWMI; SIGMA3=SIGMA;
 
 disp ('-------- training model for 4 ----------');
-N=5; A=inittran(N); [MI,SIGMA]=initemis(c4_1,N); 
+N=8; A=inittran(N); [MI,SIGMA]=initemis(c4_1,N); 
 [NEWA, NEWMI, NEWSIGMA, Ptot] = vit_reestim (c4_1,c4_2,c4_3, A, MI, SIGMA);
 Ptot
 for iter=1:5
@@ -192,17 +199,17 @@ end
 A4=NEWA; MI4=NEWMI; SIGMA4=SIGMA;
 
 disp ('-------- training model for 5 ----------');
-N=5; A=inittran(N); [MI,SIGMA]=initemis(c5_1,N); 
+N=7; A=inittran(N); [MI,SIGMA]=initemis(c5_1,N); 
 [NEWA, NEWMI, NEWSIGMA, Ptot] = vit_reestim (c5_1,c5_2,c5_3, A, MI, SIGMA);
 Ptot
-for iter=1:5
+for iter=1:6
    [NEWA,NEWMI,NEWSIGMA,Ptot] = vit_reestim (c5_1,c5_2,c5_3, NEWA, NEWMI, SIGMA);  
    Ptot
 end
 A5=NEWA; MI5=NEWMI; SIGMA5=SIGMA;
 
 
-%disp ('====== now recognizing  =======') 
+disp (['====== now recognizing ' tested_person '  =======']) 
 %format short e % this is to see correctly all elements of a vector
 
 Pvit11 = viterbi_log (c1t, A1, MI1, SIGMA1);
@@ -244,3 +251,13 @@ Pvit14 = viterbi_log (c5t, A4, MI4, SIGMA4);
 Pvit15 = viterbi_log (c5t, A5, MI5, SIGMA5);
 h=[Pvit11 Pvit12 Pvit13 Pvit14 Pvit15]
 [nic,ii]=max(h); disp(['testing for 5t, the best model is ' num2str(ii) ]);
+
+disp('');
+disp('');
+Pvit11 = viterbi_log (cp, A1, MI1, SIGMA1);
+Pvit12 = viterbi_log (cp, A2, MI2, SIGMA2);
+Pvit13 = viterbi_log (cp, A3, MI3, SIGMA3);
+Pvit14 = viterbi_log (cp, A4, MI4, SIGMA4);
+Pvit15 = viterbi_log (cp, A5, MI5, SIGMA5);
+h=[Pvit11 Pvit12 Pvit13 Pvit14 Pvit15]
+[nic,ii]=max(h); disp(['testing for "peu", the best model is ' num2str(ii) ]);
