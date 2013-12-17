@@ -1,0 +1,45 @@
+D:\Devel\STELLARIUM\MPRI_Evaluation\MPRIEvaluation\bin\Debug\MPRIEvaluation.exe.config
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\bin\Debug\MPRIEvaluation.exe.config
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\bin\Debug\MPRIEvaluation.exe
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\bin\Debug\MPRIEvaluation.pdb
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation.csprojResolveAssemblyReference.cache
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MainWindow.baml
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MainWindow.g.cs
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\obj\Debug\App.g.cs
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation_MarkupCompile.cache
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation.g.resources
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation.Properties.Resources.resources
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation.csproj.GenerateResource.Cache
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation.exe
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation.pdb
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\bin\Debug\Accord.Math.dll
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\bin\Debug\Accord.Statistics.dll
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\bin\Debug\AForge.Math.dll
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\bin\Debug\AForge.dll
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\bin\Debug\Accord.dll
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\bin\Debug\AForge.Math.xml
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\bin\Debug\AForge.xml
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\bin\Debug\Accord.pdb
+D:\Devel\MPRI\MPRI_Evaluation\MPRIEvaluation\bin\Debug\Accord.xml
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\bin\Debug\MPRIEvaluation.exe.config
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation.exe
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation.pdb
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\bin\Debug\MPRIEvaluation.exe
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\bin\Debug\MPRIEvaluation.pdb
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\bin\Debug\Accord.Math.dll
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\bin\Debug\Accord.Statistics.dll
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\bin\Debug\AForge.Math.dll
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\bin\Debug\AForge.dll
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\bin\Debug\Accord.dll
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\bin\Debug\AForge.Math.xml
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\bin\Debug\AForge.xml
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\bin\Debug\Accord.pdb
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\bin\Debug\Accord.xml
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation.csprojResolveAssemblyReference.cache
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MainWindow.baml
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MainWindow.g.cs
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\obj\Debug\App.g.cs
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation_MarkupCompile.cache
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation.g.resources
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation.Properties.Resources.resources
+D:\Devel\MPRI_Challenge\Evaluation Program\MPRI_Evaluation\MPRIEvaluation\obj\Debug\MPRIEvaluation.csproj.GenerateResource.Cache
