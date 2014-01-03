@@ -26,3 +26,11 @@ def print_classification_report(y_true, y_pred, title=''):
 
     cr = classification_report(y_true, y_pred)
     print cr
+
+"""
+Print the given cross validation results and give the mean result
+"""
+def print_cross_validation_results(scores):
+    print
+    print scores
+    print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))

@@ -3,8 +3,10 @@ __author__ = 'romain'
 import os
 import csv
 import numpy as np
+
 from config import *
 from features import *
+from sklearn import preprocessing
 
 """ List a directory for the given extension. A tag can be provided for further filtering """
 def list_dir(path, tag="", extension='.txt'):
@@ -33,32 +35,53 @@ def strip_data(files, count):
 
     return files[:count]
 
-""" Return labels and features for all rawdata files in path. """
-def load_data(path, type):
+""" normalize raw data between -1:1 """
+def norm(X):
+    if normalize_type == '':
+        return X
+    else:
+        return preprocessing.normalize(X, norm=normalize_type)
 
-    # Create a list of all files ending in .jpg
-    files = list_dir(path, 'Kinect')
+""" Return labels and features for all rawdata files in path. """
+def load_data(path, kinect_selected, xsens_selected):
+
+    # Create a list of all files of Kinect sensor datas
+    kinect_filenames = list_dir(path, kinect_filename_prefix)
 
     # eventually strip files list up to given count
-    files = strip_data(files, trainset_count)
+    kinect_filenames = strip_data(kinect_filenames, trainset_count)
 
     # Global lists for the labels and features
     labels = []
-    kinect_fts = []
-    xsens_fts = []
+    fts = []
 
     # iterate over kinect data files
-    for f in files:
-        of = open(f,"rb")
+    for kinect_filename in kinect_filenames:
+        kinect_file = open(kinect_filename,"rb")
 
-        # get label and features for current raw data file
-        label = kinect_get_label(of)
-        data = np.loadtxt(of, usecols=kinect_selected_joints)
-        ft = extract_ft(data)
+        # get xsens equivalent gesture filename
+        xsens_filename = kinect_filename.replace(kinect_filename_prefix, xsens_filename_prefix)
+        xsens_file = open(xsens_filename,"rb")
+
+        # get label and features for current gesture
+        kinect_data = np.zeros(1)
+        xsens_data = np.zeros(1)
+        label = kinect_get_label(kinect_file)
+        if len(kinect_sensors_selected) > 0:
+            kinect_data = np.loadtxt(kinect_file, usecols=kinect_selected)
+        if len(xsens_sensors_selected) > 0:
+            xsens_data = np.loadtxt(xsens_file, usecols=xsens_selected)
+
+        # skip if loading data failed
+        if kinect_data.size + xsens_data.size == 0:
+            continue
+
+        # extract some proper features from raw datas
+        ft = extract[features_type](kinect_data + xsens_data)
 
         # append to already global list of labels and features
         labels.append(int(label))
-        kinect_fts.append(ft)
+        fts.append(ft)
 
     # return features, and labels
-    return np.array(kinect_fts), np.array(labels)
+    return norm(np.array(fts)), np.array(labels)
