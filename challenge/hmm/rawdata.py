@@ -11,8 +11,11 @@ def list_dir(path, tag="", extension='.txt'):
     return [os.path.join(path, f) for f in os.listdir(path) if f.endswith(extension) and f.__contains__(tag)]
 
 """ Search a key-value into the raw data header file """
-def kinect_get_classid(open_file, header_start='#', tag='ClassId'):
-    reader = csv.reader(open_file, dialect="excel-tab")
+def get_classid(file, header_start='#', tag='ClassId'):
+
+    of = open(file, "rb")
+
+    reader = csv.reader(of, dialect="excel-tab")
     for line in reader:
         # exit if the line is no more part of the header
         if not line[0].startswith(header_start):
@@ -32,3 +35,28 @@ def strip_data(files, count):
         return files
 
     return files[:count]
+
+
+
+def load_single_file_features(f):
+    of = open(f, "rb")
+
+    # Read data and extract features
+    if "Kinect" in f:
+        data = np.loadtxt(of, usecols=kinect_sensors_selected)
+        single_file_features = extract[features_type](data)
+        single_file_features = data
+
+    elif "Xsens" in f:
+        data = np.loadtxt(of, usecols=xsens_sensors_selected)
+        single_file_features = extract[features_type](data)
+        single_file_features = data
+
+    else:
+        print("Unrecognised data file")
+        return
+
+    # Format for HMM functions
+    #single_file_features = single_file_features[:, np.newaxis]
+
+    return single_file_features
