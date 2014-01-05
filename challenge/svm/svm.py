@@ -17,18 +17,29 @@ def load_or_train(force_train=False, tuning_mode=False):
 
     clf = None
 
-    if not force_train and os.path.exists(clf_path):
-        clf = pickle.load(open(clf_path, 'rb'))
+    if not force_train and os.path.exists(cfg_clf_path):
+        clf = pickle.load(open(cfg_clf_path, 'rb'))
 
     elif tuning_mode:
         results = dict()
 
-        # do grid search for every Xsens sensor
-        for header in xsens_data_headers.iterkeys():
+        # do grid search for every sensor in selected device
+        for header in sensors[cfg_device_selected].iterkeys():
 
-            X, y = load_data(trainset_path, dict(), xsens_data_headers[header])
+            if cfg_tuning_use_all_sensors:
+                _sensors = sensors[cfg_device_selected][header]
+            else:
+                # list with corresponding columns index related to the sensors selected
+                sensors_selected_columns = ()
+                for sensor in sensors_selected:
+                    sensors_selected_columns = sensors_selected_columns + sensors[cfg_device_selected][sensor]
+                    
+                _sensors = sensors_selected_columns
+                header = str(sensors_selected) + "\n"
 
-            clf = grid_search.GridSearchCV(svm.SVC(), param_grid, verbose=1)
+            X, y = load_data(cfg_trainset_path, _sensors)
+
+            clf = grid_search.GridSearchCV(svm.SVC(), cfg_tuning_gridsearch_params, verbose=1)
             clf.fit(X, y, cross_validation=10)
 
             # print which is the best set of params found
@@ -41,12 +52,16 @@ def load_or_train(force_train=False, tuning_mode=False):
             metrics.print_cross_validation_results(scores)
 
             # add result to global result list
-            results[header + "\n(kernel=" + clf.kernel + ", C=" + str(clf.C) + ", gamma=" + str(clf.gamma) + ")"] = scores.mean()
+            results[header + " (kernel=" + clf.kernel + ", C=" + str(clf.C) + ", gamma=" + str(clf.gamma) + ")"] = scores.mean()
+
+            # exit if we are not testing all sensors
+            if not cfg_tuning_use_all_sensors:
+                break;
 
         # plot results
-        desc = "Various parameters used:\n\n" + "training set size (0 means all) = " + str(trainset_count) + "\n"\
-        "normalize type = " + normalize_type + "\n"\
-        "features extraction type = " + features_type
+        desc = "Various parameters used:\n\n" + "training set size (0 means all) = " + str(cfg_trainset_count) + "\n"\
+        "normalize type = " + cfg_norm_type + "\n"\
+        "features extraction type = " + cfg_features_type
 
         fig = plt.figure(1)
         labels = np.arange(len(results.values()))
@@ -54,7 +69,7 @@ def load_or_train(force_train=False, tuning_mode=False):
         ax1.barh(labels ,results.values(), align='center', height=0.2)    # notice the 'height' argument
         plt.yticks(labels, results.keys())
         plt.xlabel('Accuracy')
-        plt.title('Best accuracy for each Xsens sensor (found by grid searching)')
+        plt.title('Best accuracy for ' + cfg_device_selected + ' selected sensors (found by grid searching)')
         plt.grid(True)
         plt.xlim([0,1.0])
         fig.text(.1,.1,desc)
@@ -63,10 +78,10 @@ def load_or_train(force_train=False, tuning_mode=False):
 
     else:
         # Load training data set
-        X, y = load_data(trainset_path, kinect_sensors_selected, xsens_sensors_selected)
+        X, y = load_data(cfg_trainset_path, sensors_selected)
 
         # Instantiate a classifier
-        clf = svm.SVC(svm_kernel, svm_C, svm_gamma)
+        clf = svm.SVC(cfg_svm_kernel, cfg_svm_C, cfg_svm_gamma)
         clf.fit(X, y)
 
     # return the classifier

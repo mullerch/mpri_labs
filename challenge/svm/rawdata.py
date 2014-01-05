@@ -37,47 +37,42 @@ def strip_data(files, count):
 
 """ normalize raw data between -1:1 """
 def norm(X):
-    if normalize_type == '':
+    if cfg_norm_type == '':
         return X
     else:
-        return preprocessing.normalize(X, norm=normalize_type)
+        return preprocessing.normalize(X, norm=cfg_norm_type)
 
 """ Return labels and features for all rawdata files in path. """
-def load_data(path, kinect_selected, xsens_selected):
+def load_data(path, sensors):
 
     # Create a list of all files of Kinect sensor datas
-    kinect_filenames = list_dir(path, kinect_filename_prefix)
+    filenames = list_dir(path, cfg_device_selected)
 
     # eventually strip files list up to given count
-    kinect_filenames = strip_data(kinect_filenames, trainset_count)
+    filenames = strip_data(filenames, cfg_trainset_count)
 
     # Global lists for the labels and features
     labels = []
     fts = []
 
     # iterate over kinect data files
-    for kinect_filename in kinect_filenames:
-        kinect_file = open(kinect_filename,"rb")
-
-        # get xsens equivalent gesture filename
-        xsens_filename = kinect_filename.replace(kinect_filename_prefix, xsens_filename_prefix)
-        xsens_file = open(xsens_filename,"rb")
+    for filename in filenames:
+        file = open(filename,"rb")
 
         # get label and features for current gesture
-        kinect_data = np.zeros(1)
-        xsens_data = np.zeros(1)
-        label = kinect_get_label(kinect_file)
-        if len(kinect_sensors_selected) > 0:
-            kinect_data = np.loadtxt(kinect_file, usecols=kinect_selected)
-        if len(xsens_sensors_selected) > 0:
-            xsens_data = np.loadtxt(xsens_file, usecols=xsens_selected)
+        rawdatas = np.zeros(1)
+        label = kinect_get_label(file)
+
+        # load sensors data as columns
+        if len(sensors_selected) > 0:
+            rawdatas = np.loadtxt(file, usecols=sensors)
 
         # skip if loading data failed
-        if kinect_data.size + xsens_data.size == 0:
+        if rawdatas.size == 0:
             continue
 
         # extract some proper features from raw datas
-        ft = extract[features_type](kinect_data + xsens_data)
+        ft = extract[cfg_features_type](rawdatas)
 
         # append to already global list of labels and features
         labels.append(int(label))
