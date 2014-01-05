@@ -4,6 +4,7 @@ from rawdata import *
 
 import pickle
 
+
 class Gesture:
     def __init__(self, class_id, nb_states, name):
         self.model = None
@@ -35,18 +36,20 @@ class Gesture:
             print("Model training for gesture", self.name)
 
             # Instantiate a model
-            self.model = hmm.GaussianHMM(self.nb_states, algorithm='viterbi')
+            self.model = hmm.GaussianHMM(self.nb_states, algorithm='viterbi', covariance_type='diag', n_iter=10)
 
             # Loading all data
-            data_kinect = self.load_features(trainset_path, 'Kinect')
-            data_xsens = self.load_features(trainset_path, 'Xsens')
+            data_kinect = load_features(trainset_path, 'Kinect', self.class_id)
+            data_xsens = load_features(trainset_path, 'Xsens', self.class_id)
 
             # Decompose datas in train/test sets
             self.data_kinect_train, self.data_kinect_test = \
-                cross_validation.train_test_split(data_kinect, test_size=test_data_ratio, random_state=random_state_seed)
+                cross_validation.train_test_split(data_kinect, test_size=test_data_ratio,
+                                                  random_state=random_state_seed)
 
             self.data_xsens_train, self.data_xsens_test = \
-                cross_validation.train_test_split(data_xsens, test_size=test_data_ratio, random_state=random_state_seed)
+                cross_validation.train_test_split(data_xsens, test_size=test_data_ratio,
+                                                  random_state=random_state_seed)
 
             self.data_all_train.append(self.data_kinect_train)
             self.data_all_train.append(self.data_xsens_train)
@@ -54,6 +57,8 @@ class Gesture:
             self.data_all_test.append(self.data_kinect_test)
             self.data_all_test.append(self.data_xsens_test)
 
+            # print(self.data_kinect_train.shape)
+            # print(self.data_kinect_train[0].shape)
             # Fit the model to gesture
             self.model.fit(self.data_xsens_train)
 
@@ -66,27 +71,9 @@ class Gesture:
             print(self.model.transmat_)
             print()
 
-            # print("=== Means and vars of each hidden state ===")
+            print("=== Means and vars of each hidden state ===")
             for i in range(self.nb_states):
                 print("%dth hidden state" % i)
                 print("mean = ", self.model.means_[i])
                 print("var = ", np.diag(self.model.covars_[i]))
                 print()
-
-    def load_features(self, path, sensor_type):
-
-        # Create a list of all files ending in .jpg
-        files = list_dir(path, sensor_type)
-
-        # eventually strip files list up to given count
-        files = strip_data(files, trainset_count)
-
-        model_features = []
-
-        # iterate over data files
-        for f in files:
-            # If data file correspond to gesture
-            if get_classid(f) == self.class_id:
-                model_features.append(load_single_file_features(f))
-
-        return model_features

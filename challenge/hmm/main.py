@@ -3,26 +3,37 @@ __author__ = 'christian'
 
 from Gesture import *
 from validation import *
+from evaluation import *
+
 
 # Define gestures (Id, Number of hidden states, label)
 gestures = list()
 gestures.append(Gesture(1, 5, "Swipe left"))
 gestures.append(Gesture(2, 5, "Swipe right"))
-gestures.append(Gesture(3, 3, "Push to screen"))
-gestures.append(Gesture(4, 3, "Take from screen"))
-gestures.append(Gesture(5, 9, "Palm-up rotation"))
-gestures.append(Gesture(6, 9, "Palm-down rotation"))
-gestures.append(Gesture(7, 3, "Draw circle 1"))
-gestures.append(Gesture(8, 3, "Draw circle 2"))
+gestures.append(Gesture(3, 6, "Push to screen"))
+gestures.append(Gesture(4, 6, "Take from screen"))
+gestures.append(Gesture(5, 5, "Palm-up rotation"))
+gestures.append(Gesture(6, 5, "Palm-down rotation"))
+gestures.append(Gesture(7, 5, "Draw circle 1"))
+gestures.append(Gesture(8, 5, "Draw circle 2"))
 gestures.append(Gesture(9, 5, "Wave hello"))
 gestures.append(Gesture(10, 5, "Shake hand"))
 
+print("Loading gesture models")
 # Train gestures models
 for gesture in gestures:
-    gesture.train_nLoad_model(True)
+    gesture.train_nLoad_model(force_train)
+print()
 
-# Validate data (result is printed)
-validate(gestures)
+if force_train:
+    # Validate data (result is printed)
+    validate(gestures)
+else:
+    print("Note : validation cannot be done if model is loaded from files")
+    print()
+
+# Evaluate data (classify)
+evaluate(gestures)
 
 
 # features = []

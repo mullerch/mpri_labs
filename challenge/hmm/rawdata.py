@@ -28,6 +28,7 @@ def get_classid(file, header_start='#', tag='ClassId'):
 
     return int(label)
 
+
 """ strip rawdata files up to given count """
 def strip_data(files, count):
 
@@ -36,6 +37,27 @@ def strip_data(files, count):
 
     return files[:count]
 
+
+def load_features(path, sensor_type, class_id="all"):
+
+    # Create a list of all files
+    files = list_dir(path, sensor_type)
+
+    # eventually strip files list up to given count
+    files = strip_data(files, trainset_count)
+
+    model_features = []
+
+    # iterate over data files
+    for f in files:
+        # If data file correspond to gesture
+        file_class_id = get_classid(f)
+        if class_id == "all" or file_class_id == class_id:
+            single_file_features = load_single_file_features(f)
+            if single_file_features.ndim == 2:
+                model_features.append(single_file_features)
+
+    return model_features
 
 
 def load_single_file_features(f):
@@ -55,8 +77,5 @@ def load_single_file_features(f):
     else:
         print("Unrecognised data file")
         return
-
-    # Format for HMM functions
-    #single_file_features = single_file_features[:, np.newaxis]
 
     return single_file_features

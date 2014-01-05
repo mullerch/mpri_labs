@@ -1,7 +1,6 @@
 __author__ = 'romain'
 
 from sklearn import decomposition
-import numpy as np
 
 """ extract simple flatten features from rawdata """
 def extract_flatten(raw_data):

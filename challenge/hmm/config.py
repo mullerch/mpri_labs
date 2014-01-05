@@ -4,17 +4,17 @@ import features
 
 # dictionary to hold corresponding columns indices for each body part tracked
 kinect_data_headers = dict()
-kinect_data_headers["Global"] = (1,2,3)
-kinect_data_headers["ShoulderCenter"] = (16,17,18)
-kinect_data_headers["Head"] = (21,22,23)
-kinect_data_headers["ShoulderLeft"] = (26,27,28)
-kinect_data_headers["ElbowLeft"] = (31,32,33)
-kinect_data_headers["WristLeft"] = (36,37,38)
-kinect_data_headers["HandLeft"] = (41,42,43)
-kinect_data_headers["ShoulderRight"] = (46,47,48)
-kinect_data_headers["ElbowRight"] = (51,52,53)
-kinect_data_headers["WristRight"] = (56,57,58)
-kinect_data_headers["HandRight"] = (61,62,63)
+kinect_data_headers["Global"] = (1, 2, 3)
+kinect_data_headers["ShoulderCenter"] = (16, 17, 18)
+kinect_data_headers["Head"] = (21, 22, 23)
+kinect_data_headers["ShoulderLeft"] = (26, 27, 28)
+kinect_data_headers["ElbowLeft"] = (31, 32, 33)
+kinect_data_headers["WristLeft"] = (36, 37, 38)
+kinect_data_headers["HandLeft"] = (41, 42, 43)
+kinect_data_headers["ShoulderRight"] = (46, 47, 48)
+kinect_data_headers["ElbowRight"] = (51, 52, 53)
+kinect_data_headers["WristRight"] = (56, 57, 58)
+kinect_data_headers["HandRight"] = (61, 62, 63)
 
 # XSENS specific infos
 xsens_filename_prefix = 'Xsens'
@@ -41,8 +41,20 @@ xsens_data_headers["HandYawPitchRoll"] = (62, 63, 64)
 xsens_data_headers["HandQuat"] = (65, 66, 67, 68)
 
 # selected joints data from the KINECT device
+# kinect_sensors_selected = \
+#     kinect_data_headers["Global"] + \
+#     kinect_data_headers["ShoulderCenter"] + \
+#     kinect_data_headers["Head"] + \
+#     kinect_data_headers["ShoulderLeft"] + \
+#     kinect_data_headers["ElbowLeft"] + \
+#     kinect_data_headers["WristLeft"] + \
+#     kinect_data_headers["HandLeft"] + \
+#     kinect_data_headers["ShoulderRight"] + \
+#     kinect_data_headers["ElbowRight"] + \
+#     kinect_data_headers["WristRight"] + \
+#     kinect_data_headers["HandRight"]
+
 kinect_sensors_selected = \
-    kinect_data_headers["Global"] + \
     kinect_data_headers["ShoulderCenter"] + \
     kinect_data_headers["Head"] + \
     kinect_data_headers["ShoulderLeft"] + \
@@ -91,7 +103,6 @@ xsens_sensors_selected = \
     xsens_data_headers["HandYawPitchRoll"] + \
     xsens_data_headers["HandAngVel"]
 
-
 # dictionary with various features extraction algorithms
 extract = dict()
 extract["flatten"] = features.extract_flatten
@@ -102,11 +113,20 @@ features_type = "flatten"
 
 # raw data path for training
 trainset_path = "../data/Training/"
-evaluationset_path = "../data/Sample_Evaluation/"
+evaluationset_path = "../data/Evaluation/"
 
 # maximum rawdata files to load, 0=all
 trainset_count = 0
 
+# Division ratio of training/test data
 test_data_ratio = 0.4
 
+# Seed for random data division
 random_state_seed = 0
+
+# Do we load the model from files or do we generate it ?
+force_train = True
+
+# Results file informations
+group_name = "muller-maffina-gakwaya"
+evaluation_result_path = "hmm_" + group_name + "_muller.txt"

@@ -1,9 +1,9 @@
 from __future__ import print_function
 
-import pickle
+import sys
 
 def get_best_model(gestures, features):
-    best_score = -1000000000
+    best_score = -sys.maxint
     best_model = 0
 
     # Get bettest model for the gesture features with HMM

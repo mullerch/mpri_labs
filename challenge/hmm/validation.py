@@ -22,7 +22,8 @@ def validate(gestures):
             validation_result[validating_gesture.class_id-1][nb_gestures] += 1
             validation_result[nb_gestures][best_model-1] += 1
 
-    print("=== Matrice de convolution ===")
+    print("=== Convolution matrix ===")
+    print("Lines are the gestures and columns how they are recognized")
     print "%2s %20s  " % ("ID", "GESTURE"),
     for gesture in gestures:
         print "%3d" % (gesture.class_id),
@@ -46,3 +47,4 @@ def validate(gestures):
     print "%23s %s" % ("TOTAL", ":"),
     print "%3d %3d %3d %3d %3d %3d %3d %3d %3d %3d | %3d" % tuple(validation_result[nb_gestures]),
     print "%8d%%" % (mean_accuracy/nb_gestures*100)
+    print ""
