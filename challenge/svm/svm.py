@@ -33,11 +33,11 @@ def load_or_train(force_train=False, tuning_mode=False):
                 sensors_selected_columns = ()
                 for sensor in sensors_selected:
                     sensors_selected_columns = sensors_selected_columns + sensors[cfg_device_selected][sensor]
-                    
+
                 _sensors = sensors_selected_columns
                 header = str(sensors_selected) + "\n"
 
-            X, y = load_data(cfg_trainset_path, _sensors)
+            X, y = load_data(cfg_trainset_path, _sensors, True)
 
             clf = grid_search.GridSearchCV(svm.SVC(), cfg_tuning_gridsearch_params, verbose=1)
             clf.fit(X, y, cross_validation=10)
@@ -77,12 +77,28 @@ def load_or_train(force_train=False, tuning_mode=False):
 
 
     else:
+
+                # list with corresponding columns index related to the sensors selected
+        sensors_selected_columns = ()
+        for sensor in sensors_selected:
+            sensors_selected_columns = sensors_selected_columns + sensors[cfg_device_selected][sensor]
+
         # Load training data set
-        X, y = load_data(cfg_trainset_path, sensors_selected)
+        X, y = load_data(cfg_trainset_path, sensors_selected_columns, True)
 
         # Instantiate a classifier
-        clf = svm.SVC(cfg_svm_kernel, cfg_svm_C, cfg_svm_gamma)
+        clf = svm.SVC(kernel=cfg_svm_kernel, C=cfg_svm_C, gamma=cfg_svm_gamma)
+
+        # Cross validation
+        # do cross-validation and print cross-validation result (mean accuracy +/- standard deviation)
+        scores = cross_validation.cross_val_score(clf, X, y, cv=10)
+        print scores
+        print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+
         clf.fit(X, y)
+
+        # save trained classifier on disk
+        pickle.dump(clf, open(cfg_clf_path, 'wb'))
 
     # return the classifier
     return clf

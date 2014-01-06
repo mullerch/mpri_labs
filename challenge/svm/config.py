@@ -57,6 +57,9 @@ cfg_clf_path='clf.pkl'
 # raw data path for training
 cfg_trainset_path = "../data/Training/"
 
+# raw data path for validation
+cfg_evaluationset_path = "../data/Evaluation/"
+
 ###################
 ### USER CONFIG ###
 ###################
@@ -65,10 +68,10 @@ cfg_trainset_path = "../data/Training/"
 cfg_force_train = True
 
 # activate classifier tuning mode (see parameters below)
-cfg_do_tuning = True
+cfg_do_tuning = False
 
 # maximum number of files to load, 0=all
-cfg_trainset_count = 200
+cfg_trainset_count = 0
 
 # selected device
 cfg_device_selected = xsens # kinect or xsens or ''
@@ -97,6 +100,12 @@ cfg_tuning_gridsearch_params = [
 ### CLASSIFIER FINAL ###
 
 # svm params for real classifier
-cfg_svm_kernel = 'linear'
-cfg_svm_C = 32
-cfg_svm_gamma = 1
+cfg_svm_kernel = 'rbf'
+cfg_svm_C = 16
+cfg_svm_gamma = 0.5
+
+### VALIDATION ###
+cfg_algo_name = "SVM"
+cfg_group_name = "maffina-muller-gakwaya"
+cfg_author_name = "RomainMaffina"
+cfg_evaluation_result_path = cfg_algo_name + '_' + cfg_group_name + '_' + cfg_author_name + '.txt'

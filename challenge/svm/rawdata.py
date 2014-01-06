@@ -2,7 +2,7 @@ __author__ = 'romain'
 
 import os
 import csv
-import numpy as np
+import re
 
 from config import *
 from features import *
@@ -13,8 +13,9 @@ def list_dir(path, tag="", extension='.txt'):
     return [os.path.join(path, f) for f in os.listdir(path) if f.endswith(extension) and f.__contains__(tag)]
 
 """ Search a key-value into the raw data header file """
-def kinect_get_label(open_file, header_start='#', tag='ClassId'):
+def get_label(open_file, header_start='#', tag='ClassId'):
     reader = csv.reader(open_file, dialect="excel-tab")
+    label = ''
     for line in reader:
         # exit if the line is no more part of the header
         if not line[0].startswith(header_start):
@@ -42,8 +43,12 @@ def norm(X):
     else:
         return preprocessing.normalize(X, norm=cfg_norm_type)
 
-""" Return labels and features for all rawdata files in path. """
-def load_data(path, sensors):
+"""
+Return labels and features for all rawdata files in path.
+if 'labeled' then returned 'y' contains corresponding class id.
+if not then 'y' contains corresponding file id.
+"""
+def load_data(path, sensors, labeled):
 
     # Create a list of all files of Kinect sensor datas
     filenames = list_dir(path, cfg_device_selected)
@@ -52,18 +57,21 @@ def load_data(path, sensors):
     filenames = strip_data(filenames, cfg_trainset_count)
 
     # Global lists for the labels and features
-    labels = []
+    ids = []
     fts = []
 
     # iterate over kinect data files
     for filename in filenames:
         file = open(filename,"rb")
 
-        # get label and features for current gesture
+        # default matrix and get label for current file
         rawdatas = np.zeros(1)
-        label = kinect_get_label(file)
+        if labeled:
+            label = get_label(file)
+        else:
+            file_index = re.search('([0-9]+)', filename).group(0)
 
-        # load sensors data as columns
+        # load sensors data as columns for current gesture file
         if len(sensors_selected) > 0:
             rawdatas = np.loadtxt(file, usecols=sensors)
 
@@ -75,8 +83,12 @@ def load_data(path, sensors):
         ft = extract[cfg_features_type](rawdatas)
 
         # append to already global list of labels and features
-        labels.append(int(label))
+        if labeled:
+            ids.append(int(label))
+        else:
+            ids.append(int(file_index))
+
         fts.append(ft)
 
     # return features, and labels
-    return norm(np.array(fts)), np.array(labels)
+    return norm(np.array(fts)), np.array(ids)
