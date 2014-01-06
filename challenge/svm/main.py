@@ -26,10 +26,15 @@ result_file = open(cfg_evaluation_result_path, 'w')
 result_file.write("#AlgoName\t%s\n" % cfg_algo_name)
 result_file.write("#GroupName\t%s\n" % cfg_group_name)
 
-y.sort()
+evaluation_results = list()
+# Iterate over data files
+for i in range(0,y.size):
+    evaluation_results.append([y[i], y_pred[i]])
 
-for i in range(0,268):
-    result_file.write("%s\t%d\n" % (y[i], y_pred[i]))
+evaluation_results = sorted(evaluation_results, key=lambda col: col[0])
+
+for result in evaluation_results:
+    result_file.write("%s\t%d\n" % (result[0], result[1]))
 
 print " done!"
 print "result file has been stored in '%s'" % cfg_evaluation_result_path

@@ -106,6 +106,6 @@ cfg_svm_gamma = 0.5
 
 ### VALIDATION ###
 cfg_algo_name = "SVM"
-cfg_group_name = "maffina-muller-gakwaya"
+cfg_group_name = "57"
 cfg_author_name = "RomainMaffina"
 cfg_evaluation_result_path = cfg_algo_name + '_' + cfg_group_name + '_' + cfg_author_name + '.txt'
